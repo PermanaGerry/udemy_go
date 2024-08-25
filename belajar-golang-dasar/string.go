@@ -8,5 +8,5 @@ func main() {
 }
 
 func printNama() string {
-	return "Gerry Permana Putra"
+	return "Gerry Aria Nutra"
 }

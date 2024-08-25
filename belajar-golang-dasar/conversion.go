@@ -13,7 +13,7 @@ func main() {
 	fmt.Println(value16)
 	fmt.Println(value8)
 
-	var name = "Gerry permana putra"
+	var name = "Gerry Aria Nutra"
 	var e uint8 = name[0]
 	var eString string = string(e)
 
