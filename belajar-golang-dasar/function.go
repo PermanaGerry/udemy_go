@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 /**
  * Function
@@ -32,10 +34,40 @@ func main() {
 	resultVariadic := hello5("Gerry", "Nutra", "Aria")
 	fmt.Println(resultVariadic)
 
+	fmt.Println("-- Function variadic dengan data slice --")
+	namesSlice := []string{"Gerry", "Nutra", "Aria"}
+	resultNamesSlice := hello5(namesSlice...)
+	fmt.Println(resultNamesSlice)
+
 	fmt.Println("-- Function pengembalian default --")
 	resultFirstName1, resultMiddleName1, _ := hello6("Gerry", "Nutra", "Aria")
 	fmt.Println(resultFirstName1)
 	fmt.Println(resultMiddleName1)
+
+	fmt.Println("-- Function digunakan sebagai value --")
+	funcAsValue := hello2
+	funcAsValue("Nutra")
+
+	fmt.Println("-- Function digunakan sebagai parameter --")
+	hello7("Gerry", filterName)
+
+	filter := filterName
+	hello7("Nutra", filter)
+
+	fmt.Println("-- Function type declaration --")
+	filterNameAge := filterNameAge
+	hello8("Gerry", 23, filterNameAge)
+	hello8("Nutra", 23, filterNameAge)
+
+	fmt.Println("-- Function anonymous --")
+	funcAnonymous := func(name string) bool {
+		return name == "kuda"
+	}
+	fmt.Println(funcAnonymous("kuda"))
+	fmt.Println(funcAnonymous("kucing"))
+
+	fmt.Println("-- Function recursive --")
+	fmt.Println(factorial(10))
 }
 
 /**
@@ -92,4 +124,53 @@ func hello6(firstName string, middleName string, lastName string) (resultFirstNa
 	resultLastName = "last name: " + lastName
 
 	return resultFirstName, resultMiddleName, resultLastName
+}
+
+/**
+ * Function digunakan sebagai parameter
+ */
+func hello7(name string, filter func(string) string) {
+	fmt.Println("Hello", name)
+}
+
+func filterName(name string) string {
+	if name == "Gerry" {
+		return "Aria"
+	}
+
+	return name
+}
+
+/**
+ * Function type declaration
+ */
+
+type filterAge func(string, int) bool
+
+func hello8(name string, age int, filter filterAge) {
+	if filter(name, age) {
+		fmt.Println("Hello", name)
+	} else {
+		fmt.Println("Your age is", age)
+	}
+}
+
+func filterNameAge(name string, age int) bool {
+	if name == "Gerry" && age == 23 {
+		return true
+	} else {
+		return false
+	}
+}
+
+/**
+ * Function recursive
+ */
+
+func factorial(number int) int {
+	if number == 1 {
+		return 1
+	} else {
+		return number * factorial(number-1)
+	}
 }
