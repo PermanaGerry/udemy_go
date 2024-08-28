@@ -11,23 +11,29 @@ type Person struct {
 /**
  * Pointer
  * pointer adalah sebuah tipe data yang digunakan untuk menyimpan alamat memory dalam sebuah variable
- * untuk mendeklarasikan pointer pada varibel harus di awali dengan &(dan) / *(bintang)
+ * Ada 2 hal penting yang perlu diketauhui mengenai pointer :
+ * - untuk mengambil nilai pointer bisa menggunakan tanda ampersand (&) metode ini disebut refrence
  * contoh
- * - dengan menggunakan tanda *(bintang)
- * type Persen *[]string
- * - dengan menggunakan tanda &(dan)
- * var person2 = Person{"Gerry Aria Nutra", "Jl. Cempaka No. 1", 23}
- * var replaceName = &person2
+ * var person = Person{"Gerry Aria Nutra", "Jl. Cempaka No. 1", 23}
+ * var person1 = &person
+ * - untuk mengambil nilai asli sebuah pointer bisa menggunakan tanda asterisk (*) metode ini disebut dereferencing
+ * contoh
+ * var person = Person{"Gerry Aria Nutra", "Jl. Cempaka No. 1", 23}
+ * var person1 *Person = &person
  */
 func main() {
 
-	// contoh pointer pass by value
+	// contoh pass by value
 	fmt.Println("-- contoh pass by value --")
 	passByValue()
 
-	// contoh pointer pas by refrence
-	fmt.Println("-- contoh pointer pas by refrence --")
-	pointerPassByRefrence()
+	// contoh pass by refrence
+	fmt.Println("-- contoh pass by refrence --")
+	passByRefrence()
+
+	// contoh swap value by refrence dengan menggunakan operator arsterisk(*)
+	fmt.Println("-- contoh swap value by refrence --")
+	swapValueByRefrence()
 }
 
 /**
@@ -52,11 +58,32 @@ func passByValue() {
  *
  * note : untuk merubah data sebelumnya harus menggunakan pointer
  */
-func pointerPassByRefrence() {
-	var person = Person{"Gerry Aria Nutra", "Jl. Cempaka No. 1", 23}
+func passByRefrence() {
+	var person Person = Person{"Gerry Aria Nutra", "Jl. Cempaka No. 1", 23}
 
-	var replaceName = &person
+	var replaceName *Person = &person
 	replaceName.Name = "Aria"
 
 	fmt.Println(person, replaceName)
+}
+
+/**
+ * swap value by refrence
+ * Artinya mengganti data refrence dan data asli / data sebelumnya ke data yang baru
+ * untuk mengganti value bisa menggunakan operator asterisk(*)
+ */
+func swapValueByRefrence() {
+	var person Person = Person{"Gerry Aria Nutra", "Jl. Cempaka No. 1", 23}
+
+	var replacePersonName *Person = &person
+
+	replacePersonName.Name = "Aria"
+
+	fmt.Println("Data yang diganti pada key nama", *replacePersonName)
+
+	*replacePersonName = Person{"Nagato Uzumaki", "Jl. Bandung No. 1", 45}
+
+	fmt.Println("Data yang sudah di ganti pada varibel person dan replacePersonName dengan operator arsterisk")
+	fmt.Println("person : ", person)
+	fmt.Println("replacePersonName : ", *replacePersonName)
 }
