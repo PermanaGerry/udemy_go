@@ -8,6 +8,11 @@ type Person struct {
 	Age     int
 }
 
+type Mamalia struct {
+	Name  string
+	Ocean bool
+}
+
 /**
  * Pointer
  * pointer adalah sebuah tipe data yang digunakan untuk menyimpan alamat memory dalam sebuah variable
@@ -34,6 +39,18 @@ func main() {
 	// contoh swap value by refrence dengan menggunakan operator arsterisk(*)
 	fmt.Println("-- contoh swap value by refrence --")
 	swapValueByRefrence()
+
+	// contoh make
+	fmt.Println("-- contoh make --")
+	makePointerEmptyValue()
+
+	// contoh pointer in function
+	fmt.Println("-- contoh pointer in function --")
+	pointerInFunction()
+
+	// contoh pointer in method
+	fmt.Println("-- contoh pointer in method --")
+	pointerInMethod()
 }
 
 /**
@@ -86,4 +103,57 @@ func swapValueByRefrence() {
 	fmt.Println("Data yang sudah di ganti pada varibel person dan replacePersonName dengan operator arsterisk")
 	fmt.Println("person : ", person)
 	fmt.Println("replacePersonName : ", *replacePersonName)
+}
+
+/**
+ * make
+ * make adalah sebuah function yang digunakan untuk membuat data pointer sebagai variabel
+ * contoh
+ * var person = make([]string)
+ */
+func makePointerEmptyValue() {
+	var person *Person = new(Person)
+
+	fmt.Println(person)
+}
+
+/**
+ * pointer In Function
+ * Artinya function yang terdapat pointer sebagai parameter
+ *
+ * contoh
+ * var person = Person{"Gerry Aria Nutra", "Jl. Cempaka No. 1", 23}
+ * pointerInFunction(&person)
+ */
+func pointerInFunction() {
+	var person *Person = &Person{}
+
+	insertAddress(person)
+
+	fmt.Println(person)
+}
+
+func insertAddress(person *Person) {
+	person.Address = "Jl. Cempaka No. 2"
+}
+
+/**
+ * pointer In Method
+ * Artinya method yang terdapat pointer sebagai parameter
+ */
+func pointerInMethod() {
+	var animal *Mamalia = &Mamalia{}
+
+	animal.Name = "lumba - lumba"
+	animal.isOcean()
+
+	fmt.Println(*animal)
+}
+
+func (m *Mamalia) isOcean() {
+	if m.Name == "lumba - lumba" {
+		m.Ocean = true
+	} else {
+		m.Ocean = false
+	}
 }
